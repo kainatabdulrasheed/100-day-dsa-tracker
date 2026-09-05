@@ -6,7 +6,15 @@ window = tk.Tk()
 window.title("100-Day DSA Tracker")
 window.geometry("400x500")
 
+current_day = 0
 
+
+def complete_today():
+    global current_day
+    if current_day < 100:
+        current_day += 1
+        day_label.config(text=f"DAY {current_day:02d} / 100")
+        # complete_button.config(state="disabled")
 # Title
 title_label = tk.Label(
     window,
@@ -19,7 +27,7 @@ title_label.pack(pady=20)
 # Day counter
 day_label = tk.Label(
     window,
-    text="DAY 01 / 100",
+    text="DAY 0 / 100",
     font=("Arial", 18)
 )
 day_label.pack(pady=10)
@@ -58,7 +66,8 @@ complete_button = tk.Button(
     text="✅ COMPLETE TODAY",
     font=("Arial", 13, "bold"),
     padx=20,
-    pady=10
+    pady=10,
+    command=complete_today
 )
 complete_button.pack(pady=15)
 
