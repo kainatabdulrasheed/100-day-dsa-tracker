@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from datetime import date, timedelta
 from tracker import load_data, save_data, get_today
 
@@ -49,6 +49,40 @@ def calculate_streak():
         check_date -= timedelta(days=1)
 
     return streak_count
+
+def reset_progress():
+    global current_day
+    global streak
+    global best_streak
+    global today_completed
+
+    answer = messagebox.askyesno(
+        "Reset Progress",
+        "Are you sure you want to reset your entire DSA progress?"
+    )
+
+    if answer:
+        current_day = 0
+        streak = 0
+        best_streak = 0
+        today_completed = False
+
+        data["current_day"] = 0
+        data["streak"] = 0
+        data["best_streak"] = 0
+        data["history"] = []
+
+        save_data(data)
+
+        day_label.config(text="DAY 00 / 100")
+        streak_label.config(text="🔥 STREAK: 0 DAYS")
+        best_label.config(text="🏆 BEST: 0 DAYS")
+        progress_text.config(text="Progress: 0%")
+        progress_bar["value"] = 0
+
+        update_history_display()
+
+        complete_button.config(state="normal")
 
 def complete_today():
     global current_day
@@ -154,6 +188,17 @@ complete_button = tk.Button(
 )
 complete_button.pack(pady=15)
 
+
+reset_button = tk.Button(
+    window,
+    text="RESET PROGRESS",
+    font=("Arial", 10, "bold"),
+    padx=20,
+    pady=8,
+    command=reset_progress
+)
+
+reset_button.pack(pady=8)
 
 # Last 7 days
 history_label = tk.Label(

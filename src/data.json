@@ -1,8 +1,6 @@
 {
-    "current_day": 1,
-    "streak": 1,
-    "best_streak": 1,
-    "history": [
-        "2026-09-06"
-    ]
+    "current_day": 0,
+    "streak": 0,
+    "best_streak": 0,
+    "history": []
 }
